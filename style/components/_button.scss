@@ -1,0 +1,53 @@
+.btn{
+    width: 95px;
+    height: 45px;
+    cursor: pointer;
+    position: relative;
+    border: 0;
+    border-radius: 10px;
+    margin: 0 15px 30px 15px;
+
+
+    &:before{
+        border-radius: 10px;
+        position: absolute;
+        content: "";
+        z-index: -1;
+        transition: 0.3s transform;
+        width: 95px;
+        height: 45px;
+        border: 2px solid $gray;
+        left: -2px;
+        top: -2px;
+        transform-origin: center center;
+        
+    }
+    
+
+    &:hover:before{
+        transform: scale(1.05);
+    }
+
+    &:focus{
+        outline: 0;
+    }
+
+    &--medium{
+        width: 100px;
+        height: 35px;
+
+        &:before{
+            width: 100px;
+            height: 35px;
+        }
+    }
+}
+
+.active-btn,
+.active-quality-btn{
+    background: $gray;
+
+    &:before{
+        background: $gray;
+    }
+}

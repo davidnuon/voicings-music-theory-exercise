@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="89.599998mm"
+   height="211.98mm"
+   viewBox="0 0 2118.599998 5000.98"
+   version="1.1"
+   id="svg251"
+   inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="sharp-sign.svg">
+  <defs
+     id="defs245" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="400"
+     inkscape:cy="560"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1431"
+     inkscape:window-height="1030"
+     inkscape:window-x="32"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata248">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path40"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.543703"
+       d="m 90.168221,112.69507 -18.57996,6.20987 V 76.706051 l 18.59857,-6.21935 -0.0176,-34.01784 -18.57996,6.20988 V 1.3103114 H 56.886181 V 47.585401 l -21.55271,7.20743 v -37.23974 h -14.70308 v 42.15128 l -18.6047196,6.21447 0.0175,34.01784 18.5862896,-6.20974 v 42.203629 l -18.6047196,6.21447 0.0176,34.01784 18.5862796,-6.20973 v 41.37316 h 14.70309 v -46.27996 l 21.55271,-7.2073 v 37.23961 h 14.70308 v -42.15114 l 18.59858,-6.20987 z m -54.83576,18.32397 V 88.815411 l 21.55271,-7.20257 v 42.203639 l -21.55271,7.20256" />
+  </g>
+</svg>

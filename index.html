@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <section class="start">
+        <div class="start__container">
+            <div class="start__exercise-container">
+                <h1 class="start__exercise-title">Chord Voicings Exercise</h1>
+                <button class="start__exercise-btn btn">Start Exercise</button>
+            </div>
+            <div class="start__options-container">
+                <h3 class="start__options-header-three">Number of Questions:<span class='start__options-chosen--questions'></span></h3>
+                <div class="start__options-btn-container">
+                    <button class="start__options-btn--questions btn">5</button>
+                    <button class="start__options-btn--questions btn">10</button>
+                    <button class="start__options-btn--questions btn">15</button>
+                    <button class="start__options-btn--questions btn">20</button>
+                    <button class="start__options-btn--questions btn">25</button>
+                    <button class="start__options-btn--questions btn">30</button>
+                </div>
+            </div>
+            <div class="start__options-container">
+                <h3 class="start__options-header-three">Possible Chord Qualities:<span class ='start__options--qualities'><span class='start__options-chosen'></span></span></h3>
+                <div class="start__options-btn-container">
+                <button class="start__options-btn--qualities btn">Major</button>
+                <button class="start__options-btn--qualities btn">Minor</button>
+                <button class="start__options-btn--qualities btn">Diminished</button>
+                <button class="start__options-btn--qualities btn">Augmented</button>
+            </div>
+            </div>
+            <div class="start__options-container">
+                <h3 class="start__options-header-three">Maximum Number of Notes in each Chord:<span class='start__options-chosen--notes'></span></h3>
+                <div class="start__options-btn-container">
+                    <button class="start__options-btn--size btn">3</button>
+                    <button class="start__options-btn--size btn">4</button>
+                    <button class="start__options-btn--size btn">5</button>
+                    <button class="start__options-btn--size btn">6</button>
+                    <button class="start__options-btn--size btn">7</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="exercise">
+        <div class="exercise__container">
+            <canvas class="exercise__canvas" id="canvas" width='450px' height='308px'></canvas>
+            <div class="exercise__container--information">
+                <div class="exercise__container--correct">pick which note comes next</div>
+                <div class="exercise__container--percent-correct"></div>
+                <div class="exercise__container--clock-and-questions-left">
+                    <div class="exercise__container--questions-left"></div>
+                </div>
+                <div class="exercise__container--repeat-chord">
+                    <button class="exercise__btn--repeat btn btn--medium">Repeat Chord</button>
+                    <button class="exercise__btn--next btn btn--medium">Next Question</button>
+                    <button class="exercise__btn--end btn btn--medium">End Exercise</button>
+                </div>
+            </div>
+            <div class="exercise__container--choices">
+                <button class="exercise__btn btn" data-interval='m2'>m2</button>
+                <button class="exercise__btn btn" data-interval='M2'>M2</button>
+                <button class="exercise__btn btn" data-interval='m3'>m3</button>
+                <button class="exercise__btn btn" data-interval='M3'>M3</button>
+                <button class="exercise__btn btn" data-interval='P4'>P4</button>
+                <button class="exercise__btn btn" data-interval='Aug4/Dim5'>Aug4/Dim5</button>
+                <button class="exercise__btn btn" data-interval='P5'>P5</button>
+                <button class="exercise__btn btn" data-interval='m6'>m6</button>
+                <button class="exercise__btn btn" data-interval='M6'>M6</button>
+                <button class="exercise__btn btn" data-interval='m7'>m7</button>
+                <button class="exercise__btn btn" data-interval='M7'>M7</button>
+                <button class="exercise__btn btn" data-interval='P8'>P8</button>
+                <button class="exercise__btn btn" data-interval='m9'>m9</button>
+                <button class="exercise__btn btn" data-interval='M9'>M9</button>
+                <button class="exercise__btn btn" data-interval='m10'>m10</button>
+                <button class="exercise__btn btn" data-interval='M10'>M10</button>
+                <button class="exercise__btn btn" data-interval='P11'>P11</button>
+                <button class="exercise__btn btn" data-interval='Aug11/Dim12'>Aug11/Dim12</button>
+            </div>
+        </div>
+    </section>
+    <audio class='C2 note' data-num='0' data-note='C' data-color='white' src="/sounds/C2.flac"></audio>
+    <audio class='C#2 note' data-num='0' data-note='C#' src="/sounds/CSharp2.flac"></audio>
+    <audio class='D2 note' data-num='1' data-note='D' data-color='white' src="/sounds/D2.flac"></audio>
+    <audio class='D#2 note' data-num='1' data-note='D#' src="/sounds/DSharp2.flac"></audio>
+    <audio class='E2 note' data-num='2' data-note='E' data-color='white' src="/sounds/E2.flac"></audio>
+    <!--5--><audio class='F2 note' data-note='F' data-num='3' data-color='white' src="/sounds/F2.flac"></audio>
+    <audio class='F#2 note' data-num='3' data-note='F#' src="/sounds/FSharp2.flac"></audio>
+    <!--7--><audio class='G2 note' data-num='4' data-note='G' data-color='white' src="/sounds/G2.flac"></audio>
+    <audio class='G#2 note' data-num='4' data-note='G#' src="/sounds/GSharp2.flac"></audio>
+    <audio class='A2 note' data-num='5' data-note='A' data-color='white' src="/sounds/A2.flac"></audio>
+    <audio class='A#2 note' data-num='5' data-note='A#' src="/sounds/BFlat2.flac"></audio>
+    <audio class='B2 note' data-num='6' data-note='B' data-color='white' src="/sounds/B2.flac"></audio>
+    <!--12--><audio class='C3 note' data-num='7' data-note='C' data-color='white' src="/sounds/C3.flac"></audio>
+    <audio class='C#3 note' data-num='7' data-note='C#' src="/sounds/CSharp3.flac"></audio>
+    <!--14--><audio class='D3 note' data-num='8' data-note='D' data-color='white' src="/sounds/D3.flac"></audio>
+    <audio class='D#3 note' data-num='8' data-note='D#' src="/sounds/DSharp3.flac"></audio>
+    <audio class='E3 note' data-num='9' data-note='E' data-color='white' src="/sounds/E3.flac"></audio>
+    <audio class='F3 note' data-num='10' data-note='F' data-color='white' src="/sounds/F3.flac"></audio>
+    <audio class='F#3 note' data-num='10' data-note='F#' src="/sounds/FSharp3.flac"></audio>
+    <!--19--><audio class='G3 note' data-num='11' data-note='G' data-color='white' src="/sounds/G3.flac"></audio>
+    <audio class='G#3 note' data-num='11' data-note='G#' src="/sounds/GSharp3.flac"></audio>
+    <audio class='A3 note' data-num='12' data-note='A' data-color='white' src="/sounds/A3.flac"></audio>
+    <audio class='A#3 note' data-num='12' data-note='A#' src="/sounds/BFlat3.flac"></audio>
+    <!--23--><audio class='B3 note' data-num='13' data-note='B' data-color='white' src="/sounds/B3.flac"></audio>
+    <!--24--><audio class='C4 note' data-num='14' data-note='C' data-color='white' src="/sounds/C4.flac"></audio>
+    <audio class='C#4 note' data-num='14' data-note='C#' src="/sounds/CSharp4.flac"></audio>
+    <audio class='D4 note' data-num='15' data-note='D' data-color='white' src="/sounds/D4.flac"></audio>
+    <audio class='D#4 note' data-num='15' data-note='D#' src="/sounds/DSharp4.flac"></audio>
+    <audio class='E4 note' data-num='16' data-note='E' data-color='white' src="/sounds/E4.flac"></audio>
+    <audio class='F4 note' data-num='17' data-note='F' data-color='white' src="/sounds/F4.flac"></audio>
+    <audio class='F#4 note' data-num='17' data-note='F#' src="/sounds/FSharp4.flac"></audio>
+    <!--31--><audio class='G4 note' data-num='18' data-note='G' data-color='white' src="/sounds/G4.flac"></audio>
+    <audio class='G#4 note' data-num='18' data-note='G#' src="/sounds/GSharp4.flac"></audio>
+    <audio class='A4 note' data-num='19' data-note='A' data-color='white' src="/sounds/A4.flac"></audio>
+    <audio class='A#4 note' data-num='19' data-note='A#' src="/sounds/BFlat4.flac"></audio>
+    <audio class='B4 note' data-num='20' data-note='B' data-color='white' src="/sounds/B4.flac"></audio>
+    <!--37--><audio class='C5 note' data-num='21' data-note='C' data-color='white' src="/sounds/C5.flac"></audio>
+    <audio class='C#5 note' data-num='21' data-note='C#'  src="/sounds/CSharp5.flac"></audio>
+    <!--38--><audio class='D5 note' data-num='22' data-note='D' data-color='white' src="/sounds/D5.flac"></audio>
+    <audio class='D#5 note' data-num='22' data-note='D#' src="/sounds/DSharp5.flac"></audio>
+    <audio class='E5 note' data-num='23' data-note='E' data-color='white' src="/sounds/E5.flac"></audio>
+    <audio class='F5 note' data-num='24' data-note='F' data-color='white' src="/sounds/F5.flac"></audio>
+    <audio class='F#5 note' data-num='24' data-note='F#' src="/sounds/FSharp5.flac"></audio>
+    <audio class='G5 note' data-num='25' data-note='G' data-color='white'  src="/sounds/G5.flac"></audio>
+    <audio class='G#5 note' data-num='25' data-note='G#' src="/sounds/GSharp5.flac"></audio>
+    <audio class='A5 note' data-num='26' data-note='A' data-color='white' src="/sounds/A5.flac"></audio>
+    <audio class='A#5 note' data-num='26' data-note='A#' src="/sounds/BFlat5.flac"></audio>
+    <audio class='B5 note' data-num='27' data-color='white' data-note='B' src="/sounds/B5.flac"></audio>
+    <audio class='C6 note' data-num='28' data-note='C' data-color='white' src="/sounds/C6.flac"></audio>
+    <audio class='C#6 note' data-num='29' data-note='C#' src="/sounds/CSharp6.flac"></audio>
+    
+    <script src="main.js"></script>
+</body>
+</html>
