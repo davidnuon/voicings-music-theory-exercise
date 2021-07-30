@@ -1,8 +1,9 @@
     const startExerciseBtn = document.querySelector('.start__exercise-btn')
 
-    const numberOfQuestionOptions = document.querySelectorAll('.start__options-btn--questions')
-    const chordQualityOptions = document.querySelectorAll('.start__options-btn--qualities')
-    const numberOfNoteOptions = document.querySelectorAll('.start__options-btn--size')
+    //options buttons at the beginning of the exercise
+    const numberOfQuestionOptions = document.querySelectorAll('.start__options-btn--questions'),
+    chordQualityOptions = document.querySelectorAll('.start__options-btn--qualities'),
+    numberOfNoteOptions = document.querySelectorAll('.start__options-btn--size')
 
     const timesAnsweredContainer = document.querySelector('.exercise__container--percent-correct')
     const questionCount = document.querySelector('.exercise__container--questions-left')
@@ -34,8 +35,9 @@
     let questionCounter = 1
     let answeredCorrect = 0
     let timesAnswered = 0
-    let chordQualityArr = []
 
+
+    let chordQualityArr = []
     let notesArr = []
     let soundsArr = []
     let ledgerLinesArr = [
@@ -59,7 +61,7 @@
 
     function setNumberOfQuestions(){
         const numberOfQuestionsText = document.querySelector('.start__options-chosen--questions')
-        toggleButton(this, numberOfQuestionOptions)
+        toggleButton(this, numberOfQuestionOptions)//'this' is the html button clicked
         numberOfQuestionsText.innerText = ` ${this.innerText}`
 
         maxQuestions = parseInt(this.innerText, 10)
@@ -117,7 +119,7 @@
                 }
             }
         }
-        btn.classList.toggle('active-btn')
+        btn.classList.add('active-btn')
     }
 
 
@@ -130,7 +132,7 @@
             exerciseContainer.classList.add('display-flex')
         
             chooseNotesAndSounds()
-            animate();
+            animate()
 
 
             questionCount.innerText = `${questionCounter}/${maxQuestions}`
@@ -167,41 +169,47 @@
         }
     }
 
-
-    function createImages(source, xCoord, yCoord){
-        const imgMaker = document.createElement('img');
-        imgMaker.src = source;
-        ctx.drawImage(imgMaker, xCoord, yCoord);
-    }
-
     function animate(){
-        const grandStaff = 'icons/grand-staff.svg'
-        const wholeNote = 'icons/whole-note.svg'
+        const grandStaff = 'icons/grand-staff.svg', wholeNote = 'icons/whole-note.svg'
 
-        ctx.clearRect(0,0,canvas.width, canvas.height);
-        createImages(grandStaff, 0, 0);
+        function createImages(source, xCoord, yCoord){
+            const imgMaker = document.createElement('img');
+            imgMaker.src = source;
+            ctx.drawImage(imgMaker, xCoord, yCoord);
+        }
 
-        for(i = 0; i < counter; i++){
-            const note = notesArr[i]
-            const sound = soundsArr[i]
-            createImages(wholeNote, note.xCoord, note.yCoord)
-
-            if(sound.sharpOrFlat == 'sharp'){
-                createImages('icons/sharp-sign.svg', (note.xCoord - note.xCoordModifier) - 20, (note.yCoord - 9))
-            } else if(sound.sharpOrFlat == 'flat'){
-                createImages('icons/flat-sign.svg', (note.xCoord - note.xCoordModifier)  - 20, (note.yCoord - 16))
-            } else if(sound.sharpOrFlat == 'double sharp'){
-                createImages('icons/double-sharp.svg', (note.xCoord - note.xCoordModifier)  - 20, (note.yCoord - 16))
+        function drawNotesAndSharps(){
+            for(i = 0; i < counter; i++){
+                const note = notesArr[i], sound = soundsArr[i], accidental = sound.sharpOrFlat
+                const sharp = 'icons/sharp-sign.svg', flat = 'icons/flat-sign.svg', doubleSharp = 'icons/double-sharp.svg'
+                const accidentalXCoord = (note.xCoord - note.xCoordModifier) - 20, accidentalYCoord = (note.yCoord - 16)
+                createImages(wholeNote, note.xCoord, note.yCoord)// draws the note
+                // draws the accidental if required
+                if(accidental == 'sharp'){
+                    createImages(sharp, accidentalXCoord, accidentalYCoord)
+                } else if(accidental == 'flat'){
+                    createImages(flat, accidentalXCoord, accidentalYCoord)
+                } else if(accidental == 'double sharp'){
+                    createImages(doubleSharp, accidentalXCoord, accidentalYCoord)
+                }
+            }
+        }
+        
+        function drawLedgerLines(){
+            for(i = 0; i<ledgerLinesArr.length; i++){
+                const ledgerLine = 'icons/ledger-line.svg', thereIsLedger = ledgerLinesArr[i].true
+                const ledgerLineXCoord = xCoord, ledgerLineYCoord = ledgerLinesArr[i].yCoord
+                if(thereIsLedger){
+                    createImages(ledgerLine, ledgerLineXCoord, ledgerLineYCoord)// draws the ledger line if required
+                }
             }
         }
 
-        for(i = 0; i<ledgerLinesArr.length; i++){
-            if(ledgerLinesArr[i].true){
-                createImages('icons/ledger-line.svg', xCoord, ledgerLinesArr[i].yCoord)
-            }
-            
-        }
-        requestAnimationFrame(animate);
+        ctx.clearRect(0,0,canvas.width, canvas.height) //creates canvas 
+        createImages(grandStaff, 0, 0) //draws the grand staff
+        drawNotesAndSharps() // draws notes and sharps
+        drawLedgerLines() // draws ledger lines
+        requestAnimationFrame(animate) // 
     }
 
     function chooseNotesAndSounds(){
@@ -370,7 +378,6 @@
                 finalNotesArr[i].yCoord = middleCLedgerLineYCoord - ((dataNumInteger - 14) * yCoordChange)
                 finalNotesArr[i].staff = 'higher staff'
             }
-
         }
         
         notesArr = finalNotesArr
@@ -601,7 +608,8 @@
     chordQualityOptions.forEach(btn => btn.addEventListener('click', setPossibleChordQualities))
     numberOfNoteOptions.forEach(btn => btn.addEventListener('click', setNumberOfNotes))
     repeatBtn.addEventListener('click', playSounds)
-    exerciseButtons.forEach(button => button.addEventListener('click', answerQuestion))    
+    exerciseButtons.forEach(button => button.addEventListener('click', answerQuestion))
+
     nextBtn.addEventListener('click', startNewQuestion)
     endBtn.addEventListener('click', endExercise)
 
