@@ -132,9 +132,6 @@
             exerciseContainer.classList.add('display-flex')
         
             chooseNotesAndSounds()
-            animate()
-
-
             questionCount.innerText = `${questionCounter}/${maxQuestions}`
         } else {
             alert('Please fill in all options before starting the exercise!')
@@ -175,7 +172,8 @@
         function createImages(source, xCoord, yCoord){
             const imgMaker = document.createElement('img');
             imgMaker.src = source;
-            ctx.drawImage(imgMaker, xCoord, yCoord);
+            // ctx.drawImage(imgMaker, xCoord, yCoord);
+            imgMaker.onload = () => {ctx.drawImage(imgMaker, xCoord, yCoord)}
         }
 
         function drawNotesAndSharps(){
@@ -209,7 +207,6 @@
         createImages(grandStaff, 0, 0) //draws the grand staff
         drawNotesAndSharps() // draws notes and sharps
         drawLedgerLines() // draws ledger lines
-        requestAnimationFrame(animate) // 
     }
 
     function chooseNotesAndSounds(){
@@ -263,7 +260,6 @@
                 })
             }
         }
-
         
         let firstRootIndex = Array.prototype.indexOf.call(exerciseNotes, possibleNotesArr[0].sound)
         let firstThirdIndex = Array.prototype.indexOf.call(exerciseNotes, possibleNotesArr[1].sound)
@@ -386,6 +382,7 @@
         repositionAccidentals()
         playSounds()
         updateButtons()
+        animate()
     }
 
 
@@ -466,6 +463,7 @@
         repositionAccidentals()
         answerChecker(this)
         updateButtons()
+        animate()
         endQuestion(counter, soundsArr.length, exerciseButtons)
     }
 
@@ -554,7 +552,6 @@
     }
 
     function endQuestion(x, y, btns){
-        
         if(x == y && questionCounter < maxQuestions){
             switchButtons(repeatBtn, nextBtn)
             btns.forEach(button => button.removeEventListener('click', answerQuestion))        
