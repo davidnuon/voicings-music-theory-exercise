@@ -229,7 +229,7 @@
       flex-basis: 50%;
 }
 
-.exercise__container--clock-and-questions-left {
+.exercise__container--questions-left {
   -ms-flex-preferred-size: 50%;
       flex-basis: 50%;
   text-align: center;
