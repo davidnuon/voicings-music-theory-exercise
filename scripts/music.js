@@ -229,6 +229,6 @@ function chooseNotesAndSounds(){
 function playSounds(){
     for(i = 0; i < soundsArr.length; i++){
         soundsArr[i].sound.load()
-        soundsArr[i].sound.play()   
+        soundsArr[i].sound.play()
     }
 }
