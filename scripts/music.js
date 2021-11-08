@@ -232,3 +232,82 @@ function playSounds(){
         soundsArr[i].sound.play()
     }
 }
+
+// define variables
+
+// var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+// var source;
+
+// // var pre = document.querySelector('pre');
+// // var myScript = document.querySelector('script');
+// var play = document.querySelector('.btn-test');
+// // var stop = document.querySelector('.stop');
+
+// // use XHR to load an audio track, and
+// // decodeAudioData to decode it and stick it in a buffer.
+// // Then we put the buffer into the source
+
+// const audioBufferOne = new XMLHttpRequest();
+// const audioBufferTwo = new XMLHttpRequest();
+// const audioBufferThree = new XMLHttpRequest();
+
+
+    
+// audioBufferOne.open('GET', '../sounds/A2.mp3', true)
+// audioBufferTwo.open('GET', '../sounds/B2.mp3', true)
+// audioBufferThree.open('GET', '../sounds/C2.mp3', true)
+    
+
+// audioBufferOne.responseType = 'arraybuffer'
+// audioBufferTwo.responseType = 'arraybuffer'
+// audioBufferThree.responseType = 'arraybuffer'
+
+// audioBufferOne.send()
+// audioBufferTwo.send()
+// audioBufferThree.send()
+// const audioBuffArr = [audioBufferOne, audioBufferTwo, audioBufferThree]
+
+// // function getData() {
+// //   source = audioCtx.createBufferSource();
+// //   var request = new XMLHttpRequest();
+
+// //   request.open('GET', '../sounds/A2.mp3', true);
+
+// //   request.responseType = 'arraybuffer';
+
+// //   request.onload = function() {
+// //     var audioData = request.response;
+
+// //     audioCtx.decodeAudioData(audioData, function(buffer) {
+// //         source.buffer = buffer;
+
+// //         source.connect(audioCtx.destination);
+        
+// //       },
+
+// //       function(e){ console.log("Error with decoding audio data" + e.err); });
+
+// //   }
+
+// //   request.send();
+// // }
+
+// function playSounds(audioBuffer) {
+//     const source = audioCtx.createBufferSource();
+//     source.buffer = audioBuffer;
+//     source.connect(audioCtx.destination);
+//     source.start(0);
+//   }
+  
+//   for (let i = 0; i < audioBuffArr.length; i++) {
+//     playSounds(audioBuffArr[i]);
+//   }
+
+// // function playSounds(){
+// //     console.log('hi')
+// //     getData();
+// //     source.start(0);
+// //     play.setAttribute('disabled', 'disabled');
+// // }
+
+// // play.addEventListener('click', playSounds)
