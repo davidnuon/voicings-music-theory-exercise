@@ -265,4 +265,11 @@ function playSounds(){
     }
 }
 
-//YOU ARE ON LINE 113
+const test = document.querySelector('.btn-test')
+function playThePianoSpritesheet(){
+    const audio = document.querySelector('.idk')
+
+    audio.play()
+}
+
+test.addEventListener('click', playThePianoSpritesheet)
