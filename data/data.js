@@ -302,7 +302,7 @@ const exerciseNoties = [
   },
 ]
 var soundies = new Howl({
-    src: ['../sounds/piano-spritesheet.mp3'],
+    src: ['./sounds/piano-spritesheet.mp3'],
     sprite: {
       C2: exerciseNoties[0].sound,
       CSharp2: exerciseNoties[1].sound,
