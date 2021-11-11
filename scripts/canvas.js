@@ -71,7 +71,8 @@ function updateScreen(){
 
     //confirm note is drawn, needed to prevent ledger line to be drawn before note is revealed
     function confirmNoteDrawn(){
-        let noteNumber = parseInt(notesArr[notesIndex].sound.dataset.num, 10)
+        let noteNumber = parseInt(notesArr[notesIndex].num, 10)
+        // let noteNumber = parseInt(notesArr[notesIndex].sound.dataset.num, 10)
 
         notesArr[notesIndex].isDrawn = true // sets the most recently drawn note key of isDrawn to true
         determineLedgerLines(noteNumber, notesArr[notesIndex].isDrawn)
@@ -95,7 +96,8 @@ function updateScreen(){
     function updateButtons(){
         const exerciseContainerChoices = document.querySelector('.exercise__container--choices')
         const currentSoundsArrIndex = notesIndex - 1
-        const currentExerciseNotesIndex = Array.prototype.indexOf.call(exerciseNotes, soundsArr[currentSoundsArrIndex].sound)
+        const currentExerciseNotesIndex = Array.prototype.indexOf.call(exerciseNoties, soundsArr[currentSoundsArrIndex].sound)
+        // const currentExerciseNotesIndex = Array.prototype.indexOf.call(exerciseNotes, soundsArr[currentSoundsArrIndex].sound)
         
         //removes items in possibleButtonsArr below the highest currently shown note
         for(i = 1; i < possibleButtonsArr.length + 1; i++){
@@ -112,7 +114,8 @@ function updateScreen(){
         
         //create 6 exercise buttons
         for(i = 0; i < possibleButtonsArr.length; i++){
-            const possibleExerciseNotesIndex = Array.prototype.indexOf.call(exerciseNotes, possibleButtonsArr[i].sound)
+            const possibleExerciseNotesIndex = Array.prototype.indexOf.call(exerciseNoties, possibleButtonsArr[i].sound)
+            // const possibleExerciseNotesIndex = Array.prototype.indexOf.call(exerciseNotes, possibleButtonsArr[i].sound)
             possibleButtonsArr[i].interval = intervalsArr[possibleExerciseNotesIndex - currentExerciseNotesIndex]//creates interval key
             const buttonCreator = document.createElement('button')//create button
             buttonCreator.classList.add('btn', 'exercise__btn')// give these html classes
@@ -123,11 +126,14 @@ function updateScreen(){
             if(i == maxNumberOfButtons){
                 break
             } else if(i < chordLength){
-                buttonCreator.innerText = `${possibleButtonsArr[i].staffNote}${possibleButtonsArr[i].sharpOrFlatSymbol}`
+                buttonCreator.innerText = `${possibleButtonsArr[i].staffNote}`
+                // buttonCreator.innerText = `${possibleButtonsArr[i].staffNote}${possibleButtonsArr[i].sharpOrFlatSymbol}`
             } else if(i >= chordLength){
-                buttonCreator.innerText = `${possibleButtonsArr[i].staffNote}${possibleButtonsArr[i].sharpOrFlatSymbol} higher octave`
+                buttonCreator.innerText = `${possibleButtonsArr[i].staffNote}`
+                // buttonCreator.innerText = `${possibleButtonsArr[i].staffNote}${possibleButtonsArr[i].sharpOrFlatSymbol} higher octave`
             }
             exerciseContainerChoices.appendChild(buttonCreator)
+            console.log(possibleButtonsArr[i])
         }
         //add selectors and event listeners
         exerciseButtons = document.querySelectorAll('.exercise__btn')

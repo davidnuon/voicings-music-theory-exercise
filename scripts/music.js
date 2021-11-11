@@ -22,15 +22,17 @@ function randomize(number){
 
 //generates all the notes and sounds data to create the pictures on the canvas, create the buttons, and play the sounds
 function chooseNotesAndSounds(){
-    const whiteKeys = document.querySelectorAll("[data-color='white']")// these correspond to the white keys of a keyboard instrument
+    const whiteKeys = exerciseNoties.filter(notes => notes.color == 'white')
+    // const whiteKeys = document.querySelectorAll("[data-color='white']")// these correspond to the white keys of a keyboard instrument
     const randomizeWhiteKeys = randomize(whiteKeys.length - 18)// range is between 0 and whiteKeys length minus 19 so there are at least 2 buttons to choose from at the end of each question
     const randomizedWhiteKey = whiteKeys[randomizeWhiteKeys]// choose a white key randomly in node list
     const randomizedChordQualityIndex = randomize(chosenChordQualities.length)
     const randomizedChordQuality = chosenChordQualities[randomizedChordQualityIndex].innerText//randomly choose a chord quality
-    const allNotesArr = [{staffNote: randomizedWhiteKey.dataset.note, sound:randomizedWhiteKey, noteType:'root', yCoord: '', xCoord: xCoord}]//first item in array is the lowest possible note in the question
+    const allNotesArr = [{staffNote: randomizedWhiteKey.name, sound:randomizedWhiteKey, num: randomizedWhiteKey.num, noteType:'root', yCoord: '', xCoord: xCoord}]//first item in array is the lowest possible note in the question
+    // const allNotesArr = [{staffNote: randomizedWhiteKey.dataset.note, sound:randomizedWhiteKey, noteType:'root', yCoord: '', xCoord: xCoord}]//first item in array is the lowest possible note in the question
     let whiteKeysIndex = Array.prototype.indexOf.call(whiteKeys, allNotesArr[allNotesArr.length - 1].sound)// this is the index of the randomly chosen note of the whiteKeys nodelist
     let whiteKeyChordQuality
-    const possibleNotesArr = []
+    let possibleNotesArr = []
     //adds all notes from randomizedWhiteKey to end of whiteKeys nodelist skipping notes that don't form the chord from randomizedWhiteKey
     function addToAllNotesArr(){
         //if whiteKeysIndex ever exceeds whiteKeys length, stop loop
@@ -54,8 +56,9 @@ function chooseNotesAndSounds(){
                 }
                 //pushes an object into allNotesArr with various data attached to it
                 allNotesArr.push({
-                    staffNote: whiteKeys[whiteKeysIndex].dataset.note,
+                    staffNote: whiteKeys[whiteKeysIndex].name,
                     sound:whiteKeys[whiteKeysIndex],
+                    num: whiteKeys[whiteKeysIndex].num,
                     noteType: noteType,
                     yCoord: '',
                     xCoord: xCoord,
@@ -75,6 +78,7 @@ function chooseNotesAndSounds(){
             possibleNotesArr.push(allNotesArr[i])
         }
 
+
         const highestPossibleNoteArrIndex = Array.prototype.indexOf.call(whiteKeys, possibleNotesArr[possibleNotesArr.length - 1].sound)
         //if the highest possible note is between the third highest and highest overall note in program, remove the second highest note
         if(highestPossibleNoteArrIndex >= thirdHighestWhiteKeyIndex && highestPossibleNoteArrIndex <= highestWhiteKeyIndex){   
@@ -84,9 +88,11 @@ function chooseNotesAndSounds(){
     }
     //determine the quality of the chord made in allNotesArr, which was then passed onto possibleNotesArr
     function determineWhiteKeyChordQuality(){
-        let firstRootIndex = Array.prototype.indexOf.call(exerciseNotes, possibleNotesArr[0].sound)
-        let firstThirdIndex = Array.prototype.indexOf.call(exerciseNotes, possibleNotesArr[1].sound)
-        let firstFifthIndex = Array.prototype.indexOf.call(exerciseNotes, possibleNotesArr[2].sound)
+        
+        let firstRootIndex = Array.prototype.indexOf.call(exerciseNoties, possibleNotesArr[0].sound)
+        let firstThirdIndex = Array.prototype.indexOf.call(exerciseNoties, possibleNotesArr[1].sound)
+        let firstFifthIndex = Array.prototype.indexOf.call(exerciseNoties, possibleNotesArr[2].sound)
+
         const firstInterval = firstThirdIndex - firstRootIndex //an interval is how far one note is from another
         const secondInterval = firstFifthIndex - firstThirdIndex
         const minorThird = 3 //a type of interval
@@ -103,45 +109,66 @@ function chooseNotesAndSounds(){
             whiteKeyChordQuality = 'Major'
         }
     }
+
     //takes items in initial arr, changes the item if needed and push to final arr
     function addAccidentals(initialArr, finalArr){
         for(i = 0; i < initialArr.length; i++){
+            const noteTypeIndex = Array.prototype.indexOf.call(exerciseNoties, initialArr[i].sound)
             let sound, sharpOrFlat, staffNote
             let sharpOrFlatObj = {flat: {sharpOrFlat: 'flat', sharpOrFlatSymbol: 'b'}, sharp: {sharpOrFlat: 'sharp', sharpOrFlatSymbol: '#'}, doubleSharp: {sharpOrFlat: 'double sharp', sharpOrFlatSymbol: 'X'}, none: {sharpOrFlat: 'none', sharpOrFlatSymbol: ''}}
             if(initialArr[i].noteType == 'third'){
                 if(whiteKeyChordQuality == 'Major' && (randomizedChordQuality == 'Minor' || randomizedChordQuality == 'Diminished')){
-                    sound = initialArr[i].sound.previousElementSibling
+                    sound = exerciseNoties[noteTypeIndex - 1]
+                    staffNote = exerciseNoties[noteTypeIndex - 1].name
+                    // sound = initialArr[i].sound.previousElementSibling
                     sharpOrFlat = sharpOrFlatObj.flat
                     
                 } else if((whiteKeyChordQuality == 'Minor' || whiteKeyChordQuality == 'Diminished') && (randomizedChordQuality == 'Major' || randomizedChordQuality == 'Augmented')){
-                    sound = initialArr[i].sound.nextElementSibling
+                    sound = exerciseNoties[noteTypeIndex + 1]
+                    staffNote = exerciseNoties[noteTypeIndex + 1].name
+                    // sound = initialArr[i].sound.nextElementSibling
                     sharpOrFlat = sharpOrFlatObj.sharp
                 } else {
-                    sound = initialArr[i].sound
+                    sound = exerciseNoties[noteTypeIndex]
+                    staffNote = exerciseNoties[noteTypeIndex].name
+                    // sound = initialArr[i].sound
                     sharpOrFlat = sharpOrFlatObj.none
                 }  
             } else if(initialArr[i].noteType == 'fifth'){
                 if((whiteKeyChordQuality == 'Major' || whiteKeyChordQuality == 'Minor') && randomizedChordQuality == 'Diminished'){
-                    sound = initialArr[i].sound.previousElementSibling
+                    sound = exerciseNoties[noteTypeIndex - 1]
+                    staffNote = exerciseNoties[noteTypeIndex - 1].name
+                    // sound = initialArr[i].sound.previousElementSibling
                     sharpOrFlat = sharpOrFlatObj.flat
                 }else if((whiteKeyChordQuality == 'Major' || whiteKeyChordQuality == 'Minor') && randomizedChordQuality == 'Augmented'){
-                    sound = initialArr[i].sound.nextElementSibling
+                    sound = exerciseNoties[noteTypeIndex + 1]
+                    staffNote = exerciseNoties[noteTypeIndex + 1].name
+                    // sound = sound.nextElementSibling
                     sharpOrFlat = sharpOrFlatObj.sharp
                 }else if(whiteKeyChordQuality == 'Diminished' && (randomizedChordQuality == 'Major' || randomizedChordQuality == 'Minor')){
-                    sound = initialArr[i].sound.nextElementSibling
+                    sound = exerciseNoties[noteTypeIndex + 1]
+                    staffNote = exerciseNoties[noteTypeIndex + 1].name
+                    // sound = initialArr[i].sound.nextElementSibling
                     sharpOrFlat = sharpOrFlatObj.sharp
                 } else if(whiteKeyChordQuality == 'Diminished' && randomizedChordQuality == 'Augmented'){
-                    sound = initialArr[i].sound.nextElementSibling.nextElementSibling
+                    sound = exerciseNoties[noteTypeIndex + 2]
+                    staffNote = exerciseNoties[noteTypeIndex + 2].name
+                    // sound = initialArr[i].sound.nextElementSibling.nextElementSibling
                     sharpOrFlat = sharpOrFlatObj.doubleSharp
                 } else {
-                    sound = initialArr[i].sound
+                    sound = exerciseNoties[noteTypeIndex]
+                    staffNote = exerciseNoties[noteTypeIndex].name
+                    // sound = initialArr[i].sound
                     sharpOrFlat = sharpOrFlatObj.none
                 }
             } else {
-                sound = initialArr[i].sound
+                sound = exerciseNoties[noteTypeIndex]
+                staffNote = exerciseNoties[noteTypeIndex].name
+                // sound = initialArr[i].sound
                 sharpOrFlat = sharpOrFlatObj.none
             }
-            staffNote = initialArr[i].staffNote
+            // staffNote = initialArr[i].sound.name
+            // staffNote = initialArr[i].staffNote
             noteType = initialArr[i].noteType
             finalArr.push({sound: sound, staffNote: staffNote, sharpOrFlat: sharpOrFlat.sharpOrFlat, sharpOrFlatSymbol: sharpOrFlat.sharpOrFlatSymbol, interval: '', noteType: noteType, chordQuality: randomizedChordQuality})
         }
@@ -186,8 +213,8 @@ function chooseNotesAndSounds(){
     //gets names of intervals from the intervalsArr data and adds key to object
     function getIntervals(arr){
         for(i = 1; i < arr.length; i++){
-            let index = parseInt(Array.prototype.indexOf.call(exerciseNotes, arr[i].sound), 10)
-            let previousIndex = parseInt(Array.prototype.indexOf.call(exerciseNotes, arr[i-1].sound), 10)
+            let index = parseInt(Array.prototype.indexOf.call(exerciseNoties, arr[i].sound), 10)
+            let previousIndex = parseInt(Array.prototype.indexOf.call(exerciseNoties, arr[i-1].sound), 10)
             arr[i-1].interval = intervalsArr[(index - previousIndex)]
         } 
     }
@@ -195,8 +222,9 @@ function chooseNotesAndSounds(){
     //separates notes by staff, the lower numbered notes go into the lower staff called the bass clef and the higher go into the higher staff aka treble clef
     function separateNotesIntoStaves(){
         for(i = 0; i < finalNotesArr.length; i++){
-            const dataNumInteger = parseInt(finalNotesArr[i].sound.dataset.num, 10)//change data-num attribute from string to integer 
-            
+            const dataNumInteger = parseInt(finalNotesArr[i].num, 10)//change data-num attribute from string to integer 
+            // const dataNumInteger = parseInt(finalNotesArr[i].sound.dataset.num, 10)//change data-num attribute from string to integer 
+            console.log(dataNumInteger)
             if(dataNumInteger < 14){
                 finalNotesArr[i].yCoord = lowestLedgerLineYCoord - (dataNumInteger * yCoordChange)
                 finalNotesArr[i].staff = 'lower staff'
@@ -215,7 +243,9 @@ function chooseNotesAndSounds(){
     const splitArr = groupBy(possibleNotesArr, 'noteType')// splits possibleNotesArr by noteType
     reduceNumberOfNotes()// reduces number of notes if needed to fit max number of notes requirement
     consolidateArrays(splitArr.root, splitArr.third, splitArr.fifth, finalNotesArr)// brings back split array back into one finalNotesArr
-    finalNotesArr.sort((a, b) => parseInt(a.sound.dataset.num, 10) - parseInt(b.sound.dataset.num, 10))//arrange notes
+    console.log(finalNotesArr)
+    finalNotesArr.sort((a, b) => parseInt(a.num, 10) - parseInt(b.num, 10))//arrange notes
+    // finalNotesArr.sort((a, b) => parseInt(a.sound.dataset.num, 10) - parseInt(b.sound.dataset.num, 10))//arrange notes
     addAccidentals(finalNotesArr, finalSoundsArr)// add accidentals from finalNotesArr to make finalSoundsArr
     getIntervals(finalSoundsArr)//add intervals key to finalSoundsArr
     separateNotesIntoStaves()//add staff key to finalNotesArr
@@ -228,7 +258,11 @@ function chooseNotesAndSounds(){
 //loops through soundsArr and playing one sound per loop
 function playSounds(){
     for(i = 0; i < soundsArr.length; i++){
-        soundsArr[i].sound.load()
-        soundsArr[i].sound.play()   
+        soundies.play(soundsArr[i].staffNote)
+        console.log(soundsArr)
+        // soundsArr[i].sound.load()
+        // soundsArr[i].sound.play()
     }
 }
+
+//YOU ARE ON LINE 113

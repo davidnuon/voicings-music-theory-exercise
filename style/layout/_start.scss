@@ -1,12 +1,12 @@
 .start{
-    height: 100vh;
     @include flex-justify-align(center, center);
+    min-height: 750px;
     max-width: 100vw;
 
     &__container{
         @include flex-justify-align(center, center);
+        padding: 50px 0;
         flex-direction: column;
-        height: 25%;
         max-width: 100vw;
     }
 
@@ -14,6 +14,7 @@
         &-container{
             @include flex-justify-align(center, center);
             flex-direction: column;
+            
         }
 
         &-title{

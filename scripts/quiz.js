@@ -115,7 +115,6 @@ function updateScore(){
     if(correctIndicator.innerText == 'correct'){
         answeredCorrect += 1//only updates when a correct exercise button is clicked
     }
-
     timesAnsweredContainer.innerText = Math.floor(answeredCorrect / timesAnswered * 100) + '%'//score is number of correct answer divided by total number of times answer
 }
 
@@ -127,6 +126,7 @@ function answerQuestion(){
         let answer = soundsArr[soundsIndex].interval //answer is the interval
         correctIndicator.style.display = 'block'
         //checks if the button's data-interval attribute text matches the interval value of soundsArr
+        
         if(btn.dataset.interval == answer){
             correctIndicator.innerText = `correct`
         } else {
@@ -145,7 +145,8 @@ function answerQuestion(){
             switchButtons(repeatBtn, nextBtn)//switch the repeat sounds button to the next button
             btns.forEach(button => button.removeEventListener('click', answerQuestion))//removes event listeners for exercise buttons
         } else if(x == y && questionCounter == maxQuestions){//if instead there are no more questions to be asked
-            switchButtons(repeatBtn, endBtn)//switch repeat sounds button to end exercise button
+            // switchButtons(repeatBtn, endBtn)//switch repeat sounds button to end exercise button
+            repeatBtn.style.display = 'none'
             btns.forEach(button => button.removeEventListener('click', answerQuestion))//removes event listeners
             correctIndicator.innerText = `You finished! You got ${timesAnsweredContainer.innerText}`//show final score
         }
@@ -174,18 +175,19 @@ function startNewQuestion(){
 
 //resets info so that the exercise can be restarted
 function endExercise(){
-    questionCounter = 1, answeredCorrect = 0, timesAnswered = 0, notesIndex = 0
+    questionCounter = 1, answeredCorrect = 0, timesAnswered = 0, notesIndex = 0, timesAnsweredContainer.innerText = ''
     correctIndicator.innerText = 'pick the next note above the current highest'
+    repeatBtn.style.display = 'inline'
+    nextBtn.style.display = 'none'
     //hides exerciseContainer and displays startContainer
     startContainer.classList.remove('no-display')
     exerciseContainer.classList.remove('display-flex')
-    updateScore()
     exerciseButtons.forEach(button => button.addEventListener('click', answerQuestion))    
-    switchButtons(endBtn, repeatBtn)
     for(i = 0; i < ledgerLinesArr.length; i++){
         ledgerLinesArr[i].true = false
     }
 }
+
 
 startExerciseBtn.addEventListener('click', startExercise)//click to start exercise
 numberOfQuestionOptions.forEach(btn => btn.addEventListener('click', setNumberOfQuestions))//click to toggle number of questions options
