@@ -1,5 +1,5 @@
 //creates canvas and animates it
-function draw(){
+async function draw(){
     //creating canvas
     const canvas = document.getElementById('canvas')
     const ctx = canvas.getContext('2d')
@@ -7,11 +7,11 @@ function draw(){
     const grandStaff = 'icons/grand-staff.svg', wholeNote = 'icons/whole-note.svg'
     
     //create image on canvas with provided x and y coord
-    function createImages(source, xCoord, yCoord){
+    async function createImages(source, xCoord, yCoord){
         const imgMaker = document.createElement('img')
         imgMaker.onload = () => {ctx.drawImage(imgMaker, xCoord, yCoord)}
         imgMaker.src = source
-        ctx.drawImage(imgMaker, xCoord, yCoord)
+        await ctx.drawImage(imgMaker, xCoord, yCoord)
     }
 
     //if there is an accidental, draw accidental
@@ -44,11 +44,11 @@ function draw(){
         }
     }
 
-    ctx.clearRect(0,0,canvas.width, canvas.height)// draws blank white canvas
+    await ctx.clearRect(0,0,canvas.width, canvas.height)// draws blank white canvas
     createImages(grandStaff, 0, 0)//draws music staff
     drawNotesAndSharps() // draws notes and sharps
     drawLedgerLines() // draws ledger lines
-    requestAnimationFrame(draw)// draws staff again
+    // requestAnimationFrame(draw)// draws staff again
 }
 //updates information related to canvas and remakes the buttons
 function updateScreen(){
