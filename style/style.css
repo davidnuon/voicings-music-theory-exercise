@@ -32,9 +32,6 @@
 .btn:hover:before {
   transform: scale(1.05);
 }
-.btn:focus {
-  outline: 0;
-}
 .btn--medium {
   width: 100px;
   height: 35px;
@@ -76,7 +73,7 @@
 }
 .start__exercise-title {
   margin-bottom: 35px;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 .start__exercise-btn {
   width: 225px;
@@ -150,6 +147,7 @@
   text-align: center;
 }
 .exercise__container--repeat-chord {
+  margin-top: 10px;
   flex-basis: 100%;
 }
 .exercise__container--choices {

@@ -8,7 +8,6 @@
         margin: 0 15px 30px 15px;
 
         &--next{
-        // &--next, &--end{
             display: none;
             font-style: italic;
             font-weight: 900;
@@ -53,6 +52,7 @@
 
 
         &--repeat-chord{
+            margin-top:10px;
             flex-basis: 100%;
         }
 

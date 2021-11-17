@@ -1,26 +1,27 @@
 //creates canvas and animates it
-async function draw(){
+function draw(){
     //creating canvas
     const canvas = document.getElementById('canvas')
     const ctx = canvas.getContext('2d')
-
-    const grandStaff = 'icons/grand-staff.svg', wholeNote = 'icons/whole-note.svg'
+    
+    const grandStaff = 'icons/grand-staff.svg'
+    
     
     //create image on canvas with provided x and y coord
-    async function createImages(source, xCoord, yCoord){
+    function createImages(source, xCoord, yCoord){
         const imgMaker = document.createElement('img')
         imgMaker.onload = () => {ctx.drawImage(imgMaker, xCoord, yCoord)}
+            
         imgMaker.src = source
-        await ctx.drawImage(imgMaker, xCoord, yCoord)
     }
 
     //if there is an accidental, draw accidental
     function drawNotesAndSharps(){
         for(i = 0; i < notesIndex; i++){
             const note = notesArr[i], sound = soundsArr[i], accidental = sound.sharpOrFlat
-            const sharp = 'icons/sharp-sign.svg', flat = 'icons/flat-sign.svg', doubleSharp = 'icons/double-sharp.svg'
+            const sharp = 'icons/sharp-sign.svg', flat = 'icons/flat-sign.svg', doubleSharp = 'icons/double-sharp.svg', wholeNote = 'icons/whole-note.svg'
+            const noteXCoord = note.xCoord, noteYCoord = note.yCoord
             const accidentalXCoord = (note.xCoord - note.xCoordModifier) - 20, accidentalYCoord = (note.yCoord - 16)
-            createImages(wholeNote, note.xCoord, note.yCoord)// draws the note
             //draws the accidental if required
             if(accidental == 'sharp'){
                 createImages(sharp, accidentalXCoord, accidentalYCoord)
@@ -29,6 +30,7 @@ async function draw(){
             } else if(accidental == 'double sharp'){
                 createImages(doubleSharp, accidentalXCoord, accidentalYCoord)
             }
+            createImages(wholeNote, noteXCoord, noteYCoord)// draws the note
         }
     }
     
@@ -44,7 +46,7 @@ async function draw(){
         }
     }
 
-    await ctx.clearRect(0,0,canvas.width, canvas.height)// draws blank white canvas
+    ctx.clearRect(0,0,canvas.width, canvas.height)// draws blank white canvas
     createImages(grandStaff, 0, 0)//draws music staff
     drawNotesAndSharps() // draws notes and sharps
     drawLedgerLines() // draws ledger lines

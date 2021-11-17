@@ -142,7 +142,8 @@ function answerQuestion(){
     //makes the end state for the end of a question or the end of the exercise. Switches out buttons and removes event listeners
     function endQuestion(x, y, btns){
         if(x == y && questionCounter < maxQuestions){//if reached the last note of the soundsArr and there are still questions to be asked
-            switchButtons(repeatBtn, nextBtn)//switch the repeat sounds button to the next button
+            // switchButtons(repeatBtn, nextBtn)//switch the repeat sounds button to the next button
+            nextBtn.style.display = 'inline'
             btns.forEach(button => button.removeEventListener('click', answerQuestion))//removes event listeners for exercise buttons
         } else if(x == y && questionCounter == maxQuestions){//if instead there are no more questions to be asked
             // switchButtons(repeatBtn, endBtn)//switch repeat sounds button to end exercise button
@@ -167,7 +168,8 @@ function startNewQuestion(){
     }
     chooseNotesAndSounds()//chooses notes and sounds
     correctIndicator.innerText = 'pick the next note above the current highest'//reset text
-    switchButtons(nextBtn, repeatBtn)//switches buttons
+    // switchButtons(nextBtn, repeatBtn)//switches buttons
+    nextBtn.style.display = 'none'
     questionCounter += 1//increases counter
     questionCount.innerText = `${questionCounter}/${maxQuestions}`//updates questionCount text
     

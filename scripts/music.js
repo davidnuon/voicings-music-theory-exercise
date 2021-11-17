@@ -229,7 +229,6 @@ function chooseNotesAndSounds(){
     getIntervals(finalSoundsArr)//add intervals key to finalSoundsArr
     separateNotesIntoStaves()//add staff key to finalNotesArr
     notesArr = finalNotesArr
-    console.log(notesArr)
     soundsArr = finalSoundsArr
     playSounds() //play sounds of soundsArr
     updateScreen() //update the canvas and buttons
